@@ -6,4 +6,5 @@ This repository aims to display binance public apis in a comprehensive actionnab
 
 # Dependencies
 
-* https://www.binance.com/en/binance-api
+* https://developers.binance.com/docs/binance-spot-api-docs/web-socket-streams
+* 

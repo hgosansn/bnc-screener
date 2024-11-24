@@ -1,14 +1,15 @@
 
 import React, { useEffect, useState } from 'react';
-import { DATA_MODEL } from './TradeData';
+import { customDataModel } from './TradeData';
 
-const dataModel = DATA_MODEL;
-const dataKeys = Object.keys(dataModel);
+
+const dataModel = customDataModel;
+const dataKeys = Object.keys(dataModel).filter((key) => dataModel[key].active);
 
 const TradesHeader = () => (
 	<thead>
 		<tr>
-			{dataKeys.filter((key) => dataModel[key].active).map((key) => (
+			{dataKeys.map((key) => (
 				<th key={key} align="right" className='px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider'>
 					{dataModel[key].description}
 				</th>
@@ -16,11 +17,6 @@ const TradesHeader = () => (
 		</tr>
 	</thead>
 );
-
-
-export const getTradeKey = (trade) => {
-	return `${trade[dataModel.E]}_${trade[dataModel.s]}`;
-}
 
 const Trade = ({ trade }) => (
 	<tr key={trade.s} className='px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider'>
