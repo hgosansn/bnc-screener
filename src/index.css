@@ -1,0 +1,79 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+	--color-primary: #007bff;
+	--color-secondary: #6c757d;
+	--color-success: #28a745;
+	--color-danger: #dc3545;
+	--color-warning: #ffc107;
+	--color-info: #17a2b8;
+
+	--background-color: #1b1b1b;
+	--foreground-color: #eeeeee;
+	--border-color: #afafaf;
+}
+
+body {
+	font-family: 'Roboto', sans-serif;
+	background-color: var(--background-color);
+	color: var(--foreground-color);
+}
+
+#root, .App {
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: stretch;
+}
+
+#root > * {
+	margin: auto;
+}
+
+.logo {
+	position: fixed;
+	left: 0;
+	top: 0;
+	z-index: -1;
+}
+
+.App-header {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	flex: 0 0 auto;
+
+	width: 100%;
+	padding: 1rem;
+}
+
+.trades-container {
+	display: flex;
+	flex: 1 1 100%;
+	flex-direction: column;
+	align-items: center;
+	justify-content: stretch;
+}
+
+@keyframes pulse {
+	0% {
+	  transform: scale(1);
+	  box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+	}
+	100% {
+		transform: scale(1);
+		box-shadow: 0 0 0 10px rgba(34, 197, 94, 0);
+	}
+  }
+  .pulse-dot {
+	animation: pulse 1.5s infinite;
+  }
