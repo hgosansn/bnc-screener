@@ -2,7 +2,7 @@
 
 # Binance public api screening
 
-This repository aim to display binance public apis in a comprehensive actionnable manner.
+This repository aims to display binance public apis in a comprehensive actionnable manner.
 
 # Dependencies
 
