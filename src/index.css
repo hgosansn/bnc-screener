@@ -34,36 +34,6 @@ body {
 	justify-content: stretch;
 }
 
-#root > * {
-	margin: auto;
-}
-
-.logo {
-	position: fixed;
-	left: 0;
-	top: 0;
-	z-index: -1;
-}
-
-.App-header {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: space-between;
-	flex: 0 0 auto;
-
-	width: 100%;
-	padding: 1rem;
-}
-
-.trades-container {
-	display: flex;
-	flex: 1 1 100%;
-	flex-direction: column;
-	align-items: center;
-	justify-content: stretch;
-}
-
 @keyframes pulse {
 	0% {
 	  transform: scale(1);
@@ -74,6 +44,6 @@ body {
 		box-shadow: 0 0 0 10px rgba(34, 197, 94, 0);
 	}
   }
-  .pulse-dot {
+.pulse-dot {
 	animation: pulse 1.5s infinite;
-  }
+}

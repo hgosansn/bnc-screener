@@ -21,16 +21,17 @@ export const DATA_MODEL = {
     E: { active: false, type: "integer", description: "Event time" },
     s: { active: false, type: "string", description: "Symbol" },
     p: { active: false, type: "string", description: "Price change" },
+	diff: { active: true, type: "string", description: "Volatility" },
     P: { active: true, type: "string", description: "Price change percent" },
     o: { active: false, type: "string", description: "Open price" },
     h: { active: false, type: "string", description: "High price" },
     l: { active: false, type: "string", description: "Low price" },
     c: { active: true, type: "string", description: "Last price" },
-    w: { active: true, type: "string", description: "Weighted average price" },
+    w: { active: false, type: "string", description: "Weighted average price" },
     v: {
-        active: false,
+        active: true,
         type: "string",
-        description: "Total traded base asset volume",
+        description: "Traded volume",
     },
     q: {
         active: false,
@@ -60,10 +61,6 @@ const QUOTE_CURRENCIES = [
 	"TRY"
 ];
 
-
-
-
-// BTCUSDT -> BTC/USDT
 export const splitQuoteSymbol = (symbol) => {
 	let quote = QUOTE_CURRENCIES.find((currency) => symbol.includes(currency));
 	let base = symbol.replace(quote, "");
@@ -82,22 +79,20 @@ export function cleanTradeData(trade) {
 		base,
         localDateString: new Date(trade.E).toString(), // Event time
 		comparedToAvg: Math.floor((parseFloat(trade.c) / parseFloat(trade.w) -1) * 100), // Percentage below average
-        p: parseFloat(trade.p).toPrecision(2), // Price change
-        P: parseFloat(trade.P).toPrecision(2), // Price change percent
-        c: parseFloat(trade.c).toPrecision(2), // Last price
-        q: parseFloat(trade.q).toPrecision(2), // Total traded quote asset volume
-        v: parseFloat(trade.v).toPrecision(2), // Total traded base asset volume
-        w: parseFloat(trade.w).toPrecision(2), // Weighted average price
-        o: parseFloat(trade.o).toPrecision(2), // Open price
-        h: parseFloat(trade.h).toPrecision(2), // High price
-        l: parseFloat(trade.l).toPrecision(2), // Low price
+		tradeUrl: `https://www.binance.com/fr/trade/${base}_${quote}?type=cross`,
+		// Trim trailing zeros
+		v: Math.floor(trade.v), // Total traded base asset volume
+		P: parseFloat(trade.P),
+		p: parseFloat(trade.p),
+		w: parseFloat(trade.w),
+		c: parseFloat(trade.c),
     };
 }
 
 
 export const customDataModel = {
 	sp: { active: true, description: "Symbol/Quote" },
-	comparedToAvg: { active: true, description: "Compared to average" },
+	comparedToAvg: { active: false, description: "Compared to average" },
 	...DATA_MODEL
 };
 
@@ -125,6 +120,7 @@ export function aggregate(prevTrades, eventTrades) {
             displayed[newTradePair] = {
                 ...mappedNews[newTradePair],
                 isNew: false,
+				diff: parseFloat(Math.abs(displayed[newTradePair].P) - Math.abs(mappedNews[newTradePair].P))
             };
         } else {
             displayed[newTradePair] = {
@@ -134,4 +130,16 @@ export function aggregate(prevTrades, eventTrades) {
         }
     });
     return Object.values(displayed);
+}
+
+
+export const newTradesCallback = (prevTrades, eventTrades, filter) => {					
+	return aggregate(prevTrades, eventTrades).filter(
+		(eve) => {
+			if (!filter) return true;
+			return eve.s?.includes(filter);
+		}).sort((a, b) => {
+			if (!a.diff && !b.diff) return 0;
+			return a.diff > b.diff ? -1 : 1;ff
+		}).map((trade) => cleanTradeData(trade));
 }

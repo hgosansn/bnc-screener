@@ -10,20 +10,13 @@ const STREAMS = {
 
 const BINANCE_SOCKET_URL = "wss://stream.binance.com:9443/ws/";
 
-export const wsHandler = (filter, callback) => {
+export const wsHandler = (callback) => {
 	return (event) => {
 		// Parse the event data
+		console.log(event.data);
 		const eventTrades = JSON.parse(event.data);
 		try {
-			callback((prevTrades) => {					
-
-				return aggregate(prevTrades, eventTrades).filter(
-					(eve) => {
-						return eve.s?.includes(filter);
-					}).sort((a, b) => 
-						parseFloat(b.P) - parseFloat(a.P)
-					).slice(0, 10).map((trade) => cleanTradeData(trade));
-			});
+			callback(eventTrades);
 		} catch (error) {
 			console.error(error);
 		}
