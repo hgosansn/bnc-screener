@@ -1,6 +1,6 @@
 import React from "react";
 
-export const WelcomeBanner = (welcome) => {
+export const WelcomeBanner = ({ welcome }) => {
 	return (<div className="modaleBackdrop fixed top-0 left-0 bottom-0 right-0 backdrop-blur-lg z-20 items-center justify-center flex">
 		<div className="modal flex flex-col justify-center items-center bg-gray-800 rounded-lg p-8 w-1/2 z-30 max-w-[500px]">
 			<div className="text-2xl font-bold text-white">Welcome to BNC Screener</div>

@@ -89,7 +89,6 @@ export function cleanTradeData(trade) {
     };
 }
 
-
 export const customDataModel = {
 	sp: { active: true, description: "Symbol/Quote" },
 	comparedToAvg: { active: false, description: "Compared to average" },
@@ -120,7 +119,7 @@ export function aggregate(prevTrades, eventTrades) {
             displayed[newTradePair] = {
                 ...mappedNews[newTradePair],
                 isNew: false,
-				diff: parseFloat(Math.abs(displayed[newTradePair].P) - Math.abs(mappedNews[newTradePair].P))
+				diff: parseFloat(Math.abs(displayed[newTradePair].P) - Math.abs(mappedNews[newTradePair].P)).toPrecision(1)
             };
         } else {
             displayed[newTradePair] = {
