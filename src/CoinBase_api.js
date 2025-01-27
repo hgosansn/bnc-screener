@@ -1,4 +1,3 @@
-
 // https://docs.cdp.coinbase.com/exchange/reference/exchangerestapi_getproducts
 // id - string
 // base_currency - string
@@ -19,7 +18,6 @@
 // auction_mode - boolean
 // high_bid_limit_percentage - string - Percentage to calculate highest price for limit buy order (Stable coin trading pair only)
 
-
 export async function fetchAllProducts() {
     const url = 'https://api.exchange.coinbase.com/products';
     try {
@@ -35,19 +33,18 @@ export async function fetchAllProducts() {
     }
 }
 
-
 export function productMap(products) {
-	return products.reduce((acc, product) => {
-		acc[`${product.quote_currency}`] = product;
-		return acc;
-	}, {});
+    return products.reduce((acc, product) => {
+        acc[`${product.quote_currency}`] = product;
+        return acc;
+    }, {});
 }
 
 export async function fetchProductMap() {
-	const products = await fetchAllProducts();
-	return productMap(products);
+    const products = await fetchAllProducts();
+    return productMap(products);
 }
 
-fetchAllProducts().then(products => {
-	console.log(Object.keys(productMap(products)))
+fetchAllProducts().then((products) => {
+    console.log(Object.keys(productMap(products)));
 });

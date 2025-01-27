@@ -3,47 +3,118 @@
 @tailwind utilities;
 
 html {
-	--color-primary: #007bff;
-	--color-secondary: #6c757d;
-	--color-success: #28a745;
-	--color-danger: #dc3545;
-	--color-warning: #ffc107;
-	--color-info: #17a2b8;
+    --color-primary: #ffee00;
+    --color-secondary: #252525;
 
-	--background-color: #1b1b1b;
-	--foreground-color: #eeeeee;
-	--border-color: #afafaf;
+    --background-color: #1b1b1b;
+    --foreground-color: #d3d3d3;
+    --border-color: #303030;
+
+    --color-success: #28a745;
+    --color-danger: #dc3545;
+    --color-warning: #ffc107;
+    --color-info: #17a2b8;
 }
 
 body {
-	font-family: 'Roboto', sans-serif;
-	background-color: var(--background-color);
-	color: var(--foreground-color);
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--background-color);
+    color: var(--foreground-color);
 }
 
-#root, .App {
-	position: fixed;
-	top: 0;
-	left: 0;
-	bottom: 0;
-	right: 0;
+.theme-background-b {
+    background-color: var(--background-color);
+}
 
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: stretch;
+.theme-background-c {
+    color: var(--foreground-color);
+}
+
+.theme-foreground-c {
+    color: var(--foreground-color);
+}
+
+.theme-primary {
+    color: var(--color-primary);
+}
+
+.theme-secondary-b {
+    background-color: var(--color-secondary);
+}
+
+.theme-border {
+    border-color: var(--border-color);
+}
+
+.theme-focus {
+    outline: 2px solid transparent;
+    border: 1px solid transparent;
+}
+
+.theme-focus:focus {
+    border: 1px solid var(--border-color);
+}
+
+.theme-active:active {
+    border: 1px solid var(--border-color);
+}
+
+.table-head {
+    outline: 1px solid var(--border-color);
+}
+
+#root,
+.App {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: stretch;
 }
 
 @keyframes pulse {
-	0% {
-	  transform: scale(1);
-	  box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
-	}
-	100% {
-		transform: scale(1);
-		box-shadow: 0 0 0 10px rgba(34, 197, 94, 0);
-	}
-  }
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 10px rgba(34, 197, 94, 0);
+    }
+}
+
 .pulse-dot {
-	animation: pulse 1.5s infinite;
+    animation: pulse 1.5s infinite;
+}
+
+/* Apply styles to all scrollbars */
+* {
+    scrollbar-width: thin; /* For Firefox */
+    scrollbar-color: #444 #1e1e1e; /* For Firefox */
+}
+
+/* For Webkit-based browsers (Chrome, Edge, Safari) */
+*::-webkit-scrollbar {
+    width: 8px;
+    height: 8px; /* For horizontal scrollbars */
+}
+
+*::-webkit-scrollbar-track {
+    background: #1e1e1e; /* Track color */
+    border-radius: 8px;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: #444; /* Scrollbar color */
+    border-radius: 8px;
+    border: 2px solid #1e1e1e; /* Creates padding-like effect */
+}
+
+*::-webkit-scrollbar-thumb:hover {
+    background-color: #555; /* Slightly lighter on hover */
 }
